@@ -17,7 +17,7 @@ This project is an example implementation of this web service specification in F
 
 ## Getting Started
 
-```python
+```bash
 $ git clone https://github.com/renstrom/passbook_flask_example.git
 $ cd passbook_flask_example
 $ python app.py
