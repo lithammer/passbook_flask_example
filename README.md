@@ -29,7 +29,7 @@ $ python app.py
 
 Once you've installed the [Heroku Toolbelt](https://toolbelt.heroku.com), and have a Heroku account, enter the following commands from the project directory:
 
-```
+```bash
 $ heroku create
 $ git push heroku master
 ```
