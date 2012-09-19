@@ -20,7 +20,7 @@ try:
     )
 except KeyError:
     path = os.path.abspath(os.path.dirname(__file__))
-    DATABASE = 'sqlite:////{path}/test.db'.format(path=path)
+    DATABASE = 'sqlite:////{path}/dev.db'.format(path=path)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
