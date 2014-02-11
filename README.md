@@ -2,18 +2,27 @@
 
 # Passbook on Flask Example
 
-[Passbook](http://www.apple.com/ios/whats-new/#passbook) is an iOS 6 feature that manages boarding passes, movie tickets, retail coupons, & loyalty cards. Using the [PassKit API](https://developer.apple.com/library/prerelease/ios/#documentation/UserExperience/Reference/PassKit_Framework/_index.html), developers can register web services to automatically update content on the pass, such as gate changes on a boarding pass, or adding credit to a loyalty card.
+[Passbook](http://www.apple.com/ios/whats-new/#passbook) is an iOS 6 feature
+that manages boarding passes, movie tickets, retail coupons, & loyalty cards.
+Using the [PassKit API](https://developer.apple.com/library/prerelease/ios/#documentation/UserExperience/Reference/PassKit_Framework/_index.html),
+developers can register web services to automatically update content on the
+pass, such as gate changes on a boarding pass, or adding credit to a loyalty
+card.
 
 Apple [provides a specification](https://developer.apple.com/library/prerelease/ios/#documentation/PassKit/Reference/PassKit_WebService/WebService.html) for a REST-style web service protocol to communicate with Passbook, with endpoints to get the latest version of a pass, register / unregister devices to receive push notifications for a pass, and query for passes registered for a device.
 
 This project is an example implementation of this web service specification in Flask.
 
-> Apple recently updated their Developer Program License Agreement, so if you have an active developer account, but cannot access the links to PassKit documentation, make sure that you've accepted the new terms. You can accept the new terms on the main page of the iOS Member Center.
+> Apple recently updated their Developer Program License Agreement, so if you
+> have an active developer account, but cannot access the links to PassKit
+> documentation, make sure that you've accepted the new terms. You can accept
+> the new terms on the main page of the iOS Member Center.
 
 ## Requirements
 
 - Python 2.5+
-- PostgreSQL 9.1 running locally ([Postgres.app](http://postgresapp.com) is the easiest way to get a Postgres server running on your Mac)
+- PostgreSQL 9.1 running locally ([Postgres.app](http://postgresapp.com) is the
+  easiest way to get a Postgres server running on your Mac)
 
 ## Getting Started
 
@@ -25,22 +34,27 @@ $ python app.py
 
 ## Deployment
 
-[Heroku](http://www.heroku.com) is the easiest way to get your app up and running. For full instructions on how to get started, check out ["Getting Started with Python on Heroku"](https://devcenter.heroku.com/articles/python).
+[Heroku](http://www.heroku.com) is the easiest way to get your app up and
+running. For full instructions on how to get started, check out
+["Getting Started with Python on Heroku"](https://devcenter.heroku.com/articles/python).
 
-Once you've installed the [Heroku Toolbelt](https://toolbelt.heroku.com), and have a Heroku account, enter the following commands from the project directory:
+Once you've installed the [Heroku Toolbelt](https://toolbelt.heroku.com), and
+have a Heroku account, enter the following commands from the project directory:
 
 ```bash
 $ heroku create
 $ git push heroku master
 ```
 
-Take the URL from your newly-created Heroku app, and specify that as the webservice URL for your Passbook bundle.
+Take the URL from your newly-created Heroku app, and specify that as the
+webservice URL for your Passbook bundle.
 
 ---
 
 ## Specification
 
-What follows is a summary of the specification. The complete specification can be found in the [Passbook Web Service Reference](https://developer.apple.com/library/prerelease/ios/#documentation/PassKit/Reference/PassKit_WebService/WebService.html).
+What follows is a summary of the specification. The complete specification can
+be found in the [Passbook Web Service Reference](https://developer.apple.com/library/prerelease/ios/#documentation/PassKit/Reference/PassKit_WebService/WebService.html).
 
 ### Getting the Latest Version of a Pass
 
@@ -70,7 +84,9 @@ GET http://example.com/devices/<deviceLibraryIdentifier>/registrations/<passType
 
 **Response**
 
-If the `passesUpdatedSince` parameter is present, return only the passes that have been updated since the time indicated by tag. Otherwise, return all passes.
+If the `passesUpdatedSince` parameter is present, return only the passes that
+have been updated since the time indicated by tag. Otherwise, return all
+passes.
 
 - If there are matching passes, return HTTP status 200 with a JSON dictionary with the following keys and values:
     - **lastUpdated** _(string)_ The current modification tag.
@@ -125,5 +141,5 @@ Peter Renström
 
 ## License
 
-passbook_flask_example is available under the MIT license. See the LICENSE file for more info.
-
+passbook_flask_example is available under the MIT license. See the LICENSE file
+for more info.
