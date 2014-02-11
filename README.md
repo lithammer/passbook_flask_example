@@ -1,5 +1,7 @@
 ![Passbook](http://cl.ly/JPjc/title_passbook.png)
 
+[![Build Status](https://travis-ci.org/renstrom/passbook_flask_example.png)](https://travis-ci.org/renstrom/passbook_flask_example)
+
 # Passbook on Flask Example
 
 [Passbook](http://www.apple.com/ios/whats-new/#passbook) is an iOS 6 feature
