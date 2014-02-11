@@ -3,7 +3,12 @@
 import os
 import re
 from datetime import datetime
-from urlparse import urlparse
+try:
+    # Python 2
+    from urlparse import urlparse
+except ImportError:
+    # Python 3
+    from urllib.parse import urlparse
 
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
