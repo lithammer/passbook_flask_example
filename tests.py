@@ -15,7 +15,7 @@ class PassbookTestCase(unittest.TestCase):
         temp = tempfile.mkstemp()
         self.temp = temp
         self.db_fd = temp[0]
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(temp[1])
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % temp[1]
         app.config['TESTING'] = True
         self.app = app.test_client()
 
