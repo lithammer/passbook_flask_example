@@ -64,7 +64,7 @@ be found in the [Passbook Web Service Reference](https://developer.apple.com/lib
 GET http://example.com/passes/<pass_type_identifier>/<serial_number>
 ```
 
-- **pass _type_identifier** The pass’s type, as specified in the pass.
+- **pass_type_identifier** The pass’s type, as specified in the pass.
 - **serial_number** The unique pass identifier, as specified in the pass.
 
 **Response**
