@@ -29,8 +29,8 @@ This project is an example implementation of this web service specification in F
 ## Getting Started
 
 ```bash
-$ git clone https://github.com/renstrom/passbook_flask_example.git
-$ cd passbook_flask_example
+$ git clone https://github.com/renstrom/passbook_flask_example.git passbook
+$ cd passbook
 $ python app.py
 ```
 
@@ -61,11 +61,11 @@ be found in the [Passbook Web Service Reference](https://developer.apple.com/lib
 ### Getting the Latest Version of a Pass
 
 ```
-GET http://example.com/passes/<passTypeIdentifier>/<serialNumber>
+GET http://example.com/passes/<pass_type_identifier>/<serial_number>
 ```
 
-- **passTypeIdentifier** The pass’s type, as specified in the pass.
-- **serialNumber** The unique pass identifier, as specified in the pass.
+- **pass _type_identifier** The pass’s type, as specified in the pass.
+- **serial_number** The unique pass identifier, as specified in the pass.
 
 **Response**
 
@@ -76,13 +76,13 @@ GET http://example.com/passes/<passTypeIdentifier>/<serialNumber>
 ### Getting the Serial Numbers for Passes Associated with a Device
 
 ```
-GET http://example.com/devices/<deviceLibraryIdentifier>/registrations/<passTypeIdentifier>[?passesUpdatedSince=tag]
+GET http://example.com/devices/<device_library_identifier>/registrations/<pass_type_identifier>[?passesUpdatedSince=tag]
 ```
 
-- **deviceLibraryIdentifier** A unique identifier that is used to identify and authenticate the device.
-- **passTypeIdentifier** The pass’s type, as specified in the pass.
-- **serialNumber** The unique pass identifier, as specified in the pass.
-- **passesUpdatedSince** _Optional_ A tag from a previous request. 
+- **device_library_identifier** A unique identifier that is used to identify and authenticate the device.
+- **pass_type_identifier** The pass’s type, as specified in the pass.
+- **serial_number** The unique pass identifier, as specified in the pass.
+- **passesUpdatedSince** _(optional)_ A tag from a previous request.
 
 **Response**
 
@@ -91,24 +91,24 @@ have been updated since the time indicated by tag. Otherwise, return all
 passes.
 
 - If there are matching passes, return HTTP status 200 with a JSON dictionary with the following keys and values:
-    - **lastUpdated** _(string)_ The current modification tag.
-    - **serialNumbers** _(array of strings)_ The serial numbers of the matching passes.
+    - **last_updated** _(string)_ The current modification tag.
+    - **serial_numbers** _(array of strings)_ The serial numbers of the matching passes.
 - If there are no matching passes, return HTTP status 204.
 - Otherwise, return the appropriate standard HTTP status.
 
 ### Registering a Device to Receive Push Notifications for a Pass
 
 ```
-POST http://example.com/devices/<deviceLibraryIdentifier>/registrations/<passTypeIdentifier>/<serialNumber>
+POST http://example.com/devices/<device_library_identifier>/registrations/<pass_type_identifier>/<serial_number>
 ```
 
-- **deviceLibraryIdentifier** A unique identifier that is used to identify and authenticate the device.
-- **passTypeIdentifier** The pass’s type, as specified in the pass.
-- **serialNumber** The unique pass identifier, as specified in the pass.
+- **device_library_identifier** A unique identifier that is used to identify and authenticate the device.
+- **pass_type_identifier** The pass’s type, as specified in the pass.
+- **serial_number** The unique pass identifier, as specified in the pass.
 
 The POST payload is a JSON dictionary, containing a single key and value:
 
-- **pushToken** The push token that the server can use to send push notifications to this device.
+- **push_token** The push token that the server can use to send push notifications to this device.
 
 **Response**
 
@@ -120,12 +120,12 @@ The POST payload is a JSON dictionary, containing a single key and value:
 ### Unregistering a Device
 
 ```
-DELETE http://example.com/devices/<deviceLibraryIdentifier>/registrations/<passTypeIdentifier>/<serialNumber>
+DELETE http://example.com/devices/<device_library_identifier>/registrations/<pass_type_identifier>/<serial_number>
 ```
 
-- **deviceLibraryIdentifier** A unique identifier that is used to identify and authenticate the device.
-- **passTypeIdentifier** The pass’s type, as specified in the pass.
-- **serialNumber** The unique pass identifier, as specified in the pass.
+- **device_library_identifier** A unique identifier that is used to identify and authenticate the device.
+- **pass_type_identifier** The pass’s type, as specified in the pass.
+- **serial_number** The unique pass identifier, as specified in the pass.
 
 **Response**
 

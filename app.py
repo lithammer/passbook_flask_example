@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 import re
 from datetime import datetime
@@ -97,26 +96,30 @@ def index(device_library_identifier, pass_type_identifier):
     Getting the serial numbers for passes associated with a device
 
     Keyword arguments:
-    device_library_identifier -- A unique identifier that is used to identify and authenticate the device.
-    pass_type_identifier -- The pass’s type, as specified in the pass.
-
-    passes_updated_since (Optional) -- A tag from a previous request.
+    device_library_identifier -- A unique identifier that is used to identify
+                                 and authenticate the device
+    pass_type_identifier      -- The pass’s type, as specified in the pass
 
     If the passes_updated_since parameter is present, return only the passes
     that have been updated since the time indicated by tag. Otherwise, return
     all passes.
     """
-    p = Pass.query.filter_by(pass_type_identifier=pass_type_identifier).first_or_404()
+    p = Pass.query.filter_by(
+            pass_type_identifier=pass_type_identifier).first_or_404()
 
-    r = p.registrations.filter_by(device_library_identifier=device_library_identifier)
-    if 'passes_updated_since' in request.args:
-        r = r.filter(Registration.updated_at >= request.args['passes_updated_since'])
+    r = p.registrations.filter_by(
+            device_library_identifier=device_library_identifier)
+    if 'passesUpdatedSince' in request.args:
+        r = r.filter(Registration.updated_at >= request.args['passesUpdatedSince'])
 
     if r:
         # XXX: Is this the correct return value for serial number?
-        return jsonify({'lastUpdated': p.updated_at, 'serialNumbers': [p.serial_number]})
+        return jsonify({
+            'lastUpdated': p.updated_at,
+            'serialNumbers': [p.serial_number]
+        })
     else:
-        return ('', 204)
+        return ('No Content', 204)
 
 
 @app.route('/devices/<device_library_identifier>/registrations/<pass_type_identifier>/<serial_number>')
@@ -125,20 +128,23 @@ def create(device_library_identifier, pass_type_identifier, serial_number, metho
     Registering a device to receive push notifications for a pass
 
     Keyword arguments:
-    device_library_identifier -- A unique identifier that is used to identify and authenticate the device.
-    pass_type_identifier -- The pass’s type, as specified in the pass.
-    serial_number -- The unique pass identifier, as specified in the pass.
+    device_library_identifier -- A unique identifier that is used to identify
+                                 and authenticate the device
+    pass_type_identifier      -- The pass’s type, as specified in the pass
+    serial_number             -- The unique pass identifier, as specified in
+                                 the pass
     """
     p = Pass.query.filter_by(pass_type_identifier=pass_type_identifier,
                              serial_number=serial_number).first_or_404()
 
-    registrations = p.registrations.filter_by(device_library_identifier=device_library_identifier)
+    registrations = p.registrations.filter_by(
+        device_library_identifier=device_library_identifier)
     registrations.push_token = request.form['push_token']
 
     db.session.add(registrations)
     db.session.commit()
 
-    return ('', 201)
+    return ('Created', 201)
 
 
 @app.route('/devices/<device_library_identifier>/registrations/<pass_type_identifier>')
@@ -147,17 +153,21 @@ def destroy(device_library_identifier, pass_type_identifier, methods=['DELETE'])
     Unregistering a device
 
     Keyword arguments:
-    device_library_identifier -- A unique identifier that is used to identify and authenticate the device.
-    pass_type_identifier -- The pass’s type, as specified in the pass.
-    serial_number -- The unique pass identifier, as specified in the pass.
+    device_library_identifier -- A unique identifier that is used to identify
+                                 and authenticate the device
+    pass_type_identifier      -- The pass’s type, as specified in the pass
+    serial_number             -- The unique pass identifier, as specified in
+                                 the pass
     """
-    p = Pass.query.filter_by(pass_type_identifier=pass_type_identifier).first_or_404()
-    registrations = p.registrations.filter_by(device_library_identifier=device_library_identifier).first_or_404()
+    p = Pass.query.filter_by(
+        pass_type_identifier=pass_type_identifier).first_or_404()
+    registrations = p.registrations.filter_by(
+        device_library_identifier=device_library_identifier).first_or_404()
 
     db.session.delete(registrations)
     db.session.commit()
 
-    return ('', 200)
+    return ('OK', 200)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
