@@ -20,8 +20,7 @@ try:
         pwd=url.password,
         host=url.hostname,
         port=url.port,
-        db=url.path[1:]
-    )
+        db=url.path[1:])
 except KeyError:
     path = os.path.abspath(os.path.dirname(__file__))
     DATABASE = 'sqlite:////{path}/dev.db'.format(path=path)
@@ -52,7 +51,7 @@ class Pass(db.Model):
         self.updated_at = datetime.utcnow()
 
     def __repr__(self):
-        return u'<Pass {}>'.format(self.pass_type_identifier)
+        return '<Pass %s>' % self.pass_type_identifier
 
 
 class Registration(db.Model):
@@ -62,7 +61,8 @@ class Registration(db.Model):
     created_at = db.Column(db.DateTime)
     updated_at = db.Column(db.DateTime)
     pass_id = db.Column(db.Integer, db.ForeignKey('pass.id'))
-    p = db.relationship('Pass', backref=db.backref('registrations', lazy='dynamic'))
+    p = db.relationship('Pass', backref=db.backref('registrations',
+                                                   lazy='dynamic'))
 
     def __init__(self, device_library_identifier, push_token, p):
         self.device_library_identifier = device_library_identifier
@@ -72,7 +72,7 @@ class Registration(db.Model):
         self.updated_at = datetime.utcnow()
 
     def __repr__(self):
-        return u'<Registration {}>'.format(self.device_library_identifier)
+        return '<Registration %s>' % self.device_library_identifier
 
 
 @app.route('/passes/<pass_type_identifier>/<serial_number>')
@@ -81,8 +81,8 @@ def show(pass_type_identifier, serial_number):
     Getting the latest version of a Pass
 
     Keyword arguments:
-    pass_type_identifier -- The pass’s type, as specified in the pass.
-    serial_number -- The unique pass identifier, as specified in the pass.
+    pass_type_identifier -- The pass’s type, as specified in the pass
+    serial_number -- The unique pass identifier, as specified in the pass
     """
     p = Pass.query.filter_by(pass_type_identifier=pass_type_identifier,
                              serial_number=serial_number).first_or_404()
