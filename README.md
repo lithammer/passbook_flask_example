@@ -1,6 +1,6 @@
 ![Passbook](http://cl.ly/JPjc/title_passbook.png)
 
-[![Build Status](https://travis-ci.org/renstrom/passbook_flask_example.png)](https://travis-ci.org/renstrom/passbook_flask_example)
+[![Build Status](https://travis-ci.org/lithammer/passbook_flask_example.png)](https://travis-ci.org/lithammer/passbook_flask_example)
 
 # Passbook on Flask Example
 
@@ -29,7 +29,7 @@ This project is an example implementation of this web service specification in F
 ## Getting Started
 
 ```bash
-$ git clone https://github.com/renstrom/passbook_flask_example.git passbook
+$ git clone https://github.com/lithammer/passbook_flask_example.git passbook
 $ cd passbook
 $ python app.py
 ```
@@ -137,9 +137,9 @@ DELETE http://example.com/devices/<device_library_identifier>/registrations/<pas
 
 ## Contact
 
-Peter Renström
+Peter Lithammer
 
-- [http://github.com/renstrom](http://github.com/renstrom)
+- [http://github.com/lithammer](http://github.com/lithammer)
 
 ## License
 
